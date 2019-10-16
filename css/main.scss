@@ -1,0 +1,138 @@
+$primaryColor: #1A5276 !important;
+
+body {
+  padding: 0;
+  margin: 0;
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+
+  nav {
+    border-bottom: 1px solid lightgrey;
+  }
+
+  .p-0 {
+    padding: 0 !important;
+  }
+
+  .mr-1 {
+    margin-right: 1em !important;
+  }
+
+  .ml-1 {
+    margin-left: 1em !important;
+  }
+
+  .pointer {
+    cursor: pointer;
+  }
+
+  main {
+    min-height: calc(100vh - 56px);
+    flex: 1 0 auto;
+  }
+
+  .refine-results {
+    min-width: 20%;
+
+    &-btns {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+      padding-top: 1em;
+    }
+  }
+
+  .card {
+    margin: 0 0 0.5em;
+  }
+
+  .brand {
+    background-color: $primaryColor;
+  }
+
+  .brand-text {
+    color: $primaryColor;
+  }
+
+  form {
+    padding: 2em !important;
+  }
+
+  .posts {
+    margin-top: 2em;
+    width: 70%;
+
+    .post-card {
+      margin: 0;
+      width: 100%;
+
+      .col {
+        .card {
+          border: 1px solid lightgrey !important;
+
+          &-content {}
+
+          &-action {}
+        }
+      }
+
+      .post-card-description {
+        width: 60%;
+      }
+
+      .card-content {
+        padding: 10px 20px !important;
+      }
+
+      .post-card-createdat {
+        padding-top: 0.5em;
+      }
+    }
+  }
+
+  .sign-in-page {
+    height: 90vh;
+    margin-top: 5em;
+
+    .signin-form {
+      max-width: 450px;
+      border-radius: 10px;
+      border: 1px solid lightgrey;
+      margin: auto;
+    }
+
+    .signin-options {
+      padding: 1em;
+    }
+  }
+
+  .post-details {
+    margin-top: 2em;
+    .card{
+      border: 1px solid lightgrey;
+    }
+
+    .add-favorites,
+    .edit-post {
+      position: relative;
+      top: 0.2px;
+    }
+  }
+
+  .form-button {
+    position: relative;
+    bottom: 1.5px;
+    padding: 0 !important;
+    display: inline;
+  }
+}
+@media(max-width: 800px) {
+  .posts {
+    width: 100% !important;
+  }
+
+  .refine-results {
+    width: 100% !important;
+  }
+}
