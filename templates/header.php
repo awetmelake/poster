@@ -1,6 +1,6 @@
 <?php
 session_start();
-include($_SERVER["DOCUMENT_ROOT"] . '/project/includes/fetch-favorites.php');
+include('./includes/fetch-favorites.php');
 ?>
 <head>
   <meta charset="utf-8">
