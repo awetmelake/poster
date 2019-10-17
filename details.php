@@ -6,7 +6,7 @@
 <div class="row post-details">
 	<div class="col s12 card z-depth-0">
 		<?php if ($post): ?>
-			<!-- #post header -->
+			<!-- post header -->
 			<div class="card-content z-depth-0 pl-4 ">
 					<h4 ><?php echo htmlspecialchars($post['title']) ?></h4>
 					<div><?php echo htmlspecialchars($post['company']) ?></div>
@@ -21,7 +21,7 @@
           <br>
 				<div class="divider"></div>
 
-				<!-- #post body -->
+				<!-- post body -->
 				<div class="section">
 					<h5>Job description</h5>
 					<?php if (!empty($post['description'])): ?>
@@ -103,19 +103,19 @@
 					</div>
         </div>
 
-					<!-- #post footer -->
+					<!-- post footer -->
 					<div class=" card-action ">
 						<div class="center white text right ">
               <?php if (isset($_SESSION['userId']) && $_SESSION['userId'] == $post['created_by']): ?>
                 <form method="POST" action="edit-post.php?id=<?php echo $_GET['id'] ?>" class="form-button edit-post">
                   <input type="submit" class="btn brand z-depth-0"  name="edit-post-submit" value="edit"/>
                 </form>
-              <?php elseif (array_search($post['id'], $favorites)): ?>
-                <form method="POST" action="edit-post.php?id=<?php echo $_GET['id'] ?>" class="form-button edit-post">
+              <?php elseif (!empty($favorites) && array_search($post['id'], $favorites)): ?>
+                <form method="POST" action="./includes/remove-favorites.php?id=<?php echo $_GET['id'] ?>" class="form-button edit-post">
                   <input type="submit" class="btn brand z-depth-0"  name="remove-favorites-submit" value="Remove from favorites"/>
                 </form>
               <?php else: ?>
-                <form method="POST" action="./includes/add-favorites.inc.php?id=<?php echo htmlspecialchars($_GET['id']) ?>" class="form-button add-favorites">
+                <form method="POST" action="./includes/add-favorites.inc.php?id=<?php echo $_GET['id']?>" class="form-button add-favorites">
                   <input type="submit" class="btn brand z-depth-0" value="Save" name="favorites-submit"/>
                 </form>
               <?php endif; ?>
