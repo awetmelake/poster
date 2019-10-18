@@ -1,9 +1,10 @@
 <?php
-include("../config/db_connect.php");
+include($_SERVER['DOCUMENT_ROOT']  . "/config/db_connect.php");
 session_start();
 
 if (!isset($_SESSION['userId']) || !isset($_POST['remove-favorites-submit'])) {
-    header("Location: ../index.php?err=unauthorized");
+    echo("<script>location.href = '/index.php?err=unauthorized';</script>");
+    echo "failed";
 } else {
     $userId = intval($_SESSION['userId']);
     $postId = intval($_GET['id']);
@@ -11,12 +12,13 @@ if (!isset($_SESSION['userId']) || !isset($_POST['remove-favorites-submit'])) {
     $stmt = mysqli_stmt_init($conn);
 
     if (!mysqli_stmt_prepare($stmt, $sql)) {
-        header("Location: ../index.php?err=sqlerror");
+        echo("<script>location.href = '/index.php?err=sqlerror';</script>");
         exit();
     } else {
+        echo "passed";
         mysqli_stmt_bind_param($stmt, 'ii', $userId, $postId);
         mysqli_stmt_execute($stmt);
-        header('Location: ../details.php?id=' . $postId);
+        echo("<script>location.href = '/details.php?id=" . $postId . "';</script>");
     }
     mysqli_stmt_close($stmt);
     mysqli_close($conn);

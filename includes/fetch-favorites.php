@@ -1,23 +1,21 @@
 <?php
 // retrieve favorites for current logged in users
-include("./config/db_connect.php");
-
+include($_SERVER['DOCUMENT_ROOT'] . "/config/db_connect.php");
+include_once($_SERVER['DOCUMENT_ROOT'] . "/includes/fetch-assoc.php");
 if (isset($_SESSION['userId'])) {
     $userId = intval($_SESSION['userId']);
     $sql = "SELECT post_id FROM favorite_posts WHERE user_id = ? ";
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt, $sql)) {
-        header("Location: index.php?err=sqlerror");
+        echo("<script>location.href = '/index.php?err=sqlerror';</script>");
         exit();
     } else {
         mysqli_stmt_bind_param($stmt, 'i', $userId);
         mysqli_stmt_execute($stmt);
-        $result =  mysqli_stmt_get_result($stmt);
+        mysqli_stmt_store_result($stmt);
         $favorites = array();
-        while ($row = mysqli_fetch_assoc($result)) {
-            foreach ($row as $r) {
-                array_push($favorites, $r);
-            }
+        while ($row = fetchAssocStatement($stmt)) {
+            array_push($favorites, $row['post_id']);
         }
     }
     mysqli_stmt_close($stmt);

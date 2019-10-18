@@ -1,13 +1,17 @@
 <?php
-include("./config/db_connect.php");
+include($_SERVER['DOCUMENT_ROOT'] . "/config/db_connect.php");
 
-// default query
-$sql = "SELECT * FROM posts ORDER BY created_at DESC";
+// default base query substring
+$sql = "SELECT * FROM posts ";
 
 $result = mysqli_query($conn, $sql);
-$posts = mysqli_fetch_all($result, MYSQLI_ASSOC);
+$posts = array();
 
-$orderedOptions = array("new", "old" , "lowestpaying", "highestpaying");
+while ($row = mysqli_fetch_assoc($result)) {
+    $posts[] = $row;
+}
+
+$orderedOptions = array("new", "old" , "lowest", "highest");
 $typeOptions = array("full-time", "contract" , "part-time");
 $locationOptions = array();
 $salaryOptions = array();
@@ -26,62 +30,71 @@ foreach ($posts as $post) {
     } else {
         $salary = null;
     }
-    if (array_search($city, $locationOptions) !== 0) {
+    if (!in_array($city, $locationOptions)) {
         array_push($locationOptions, $city);
     }
-    if (array_search($salary, $salaryOptions) && $salary !== 0) {
+    if (!in_array($salary, $salaryOptions) && $salary !== 0) {
         array_push($salaryOptions, $salary);
-        if (isset($_GET['salary'])) {
-            $salaryOptions = array($_GET['salary']);
+        if (isset($_GET['s'])) {
+            $salaryOptions = array($_GET['s']);
         }
     }
 }
 
-if (isset($_GET['ordered'])) {
-    switch ($_GET['ordered']) {
+// filters from query params
+if (isset($_GET['s'])) {
+    if (!empty($_GET['s'])) {
+        $salary = mysqli_real_escape_string($conn, $_GET['s']);
+        $sql .= "WHERE (average_yearly_from_salary + average_yearly_from_hourly) > '$salary' ";
+    }
+}
+
+if (isset($_GET['l']) && isset($_GET['s'])) {
+    if (!empty($_GET['l'])) {
+        $location = mysqli_real_escape_string($conn, $_GET['l']);
+        $sql .= "AND BINARY city = '$location' ";
+    }
+} elseif (isset($_GET['l']) && !isset($_GET['s'])) {
+    $sql .= "AND BINARY city = '$location' ";
+}
+
+if (isset($_GET['jt']) && isset($_GET['s']) || isset($_GET['l'])) {
+    if (!empty($_GET['jt'])) {
+        $type = mysqli_real_escape_string($conn, $_GET['jt']);
+        $sql .= "AND type = '$type' ";
+    }
+}
+
+// lastly order
+if (isset($_GET['o'])) {
+    switch ($_GET['o']) {
       case 'new':
-      $sql = "SELECT * FROM posts ORDER BY created_at DESC";
+      $sql .= "ORDER BY created_at DESC";
         break;
       case 'old':
-      $sql = "SELECT * FROM posts ORDER BY created_at";
+      $sql .= "ORDER BY created_at";
         break;
-      case 'lowestpaying':
-        $sql = "SELECT * FROM posts ORDER BY (hourly_max + hourly_min) * 1000 DESC ";
+      case 'lowest':
+        $sql .= "ORDER BY (average_yearly_from_salary + average_yearly_from_hourly)";
         break;
-      case 'highestpaying':
-      $sql = "SELECT * FROM posts ORDER BY created_at DESC";
+      case 'highest':
+        $sql .= "ORDER BY (average_yearly_from_salary + average_yearly_from_hourly) DESC";
         break;
       default:
-        header("Location: index.php");
+        $sql .= "ORDER BY created_at DESC";
         break;
     }
-}
-
-// filters from query params
-if (isset($_GET['salary'])) {
-    if ($_GET['salary'] != "") {
-        $salary = mysqli_real_escape_string($conn, $_GET['salary']);
-        $sql = "SELECT * FROM posts WHERE (salary_min + salary_max) / 2 >=  '$salary' OR (hourly_max + hourly_min) * 1000 > '$salary'";
-    }
-}
-
-if (isset($_GET['location'])) {
-    if ($_GET['location'] != "") {
-        $location = mysqli_real_escape_string($conn, $_GET['location']);
-        $sql = "SELECT * FROM posts WHERE BINARY city = '$location'";
-    }
-}
-
-if (isset($_GET['type'])) {
-    if ($_GET['location'] != "") {
-        $type = mysqli_real_escape_string($conn, $_GET['location']);
-        $sql = "SELECT * FROM posts WHERE city = '$location' or state = '$location'";
-    }
+} else {
+    $sql .= "ORDER BY created_at DESC";
 }
 
 
 $result = mysqli_query($conn, $sql);
-$posts = mysqli_fetch_all($result, MYSQLI_ASSOC);
+$posts = array();
+
+while ($row = mysqli_fetch_assoc($result)) {
+    $posts[] = $row;
+}
 
 
 sort($salaryOptions);
