@@ -1,7 +1,8 @@
 <?php
 session_start();
-include('./includes/fetch-favorites.php');
 ?>
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
 <head>
   <meta charset="utf-8">
   <title>Postr</title>
@@ -28,7 +29,7 @@ include('./includes/fetch-favorites.php');
           <!-- logout btn -->
           <li>
           <form class="p-0 form-button" action="./logout.php" method="POST">
-            <button class="btn brand z-depth-0" type="submit" role="button" name="logout-submit">Log out</button>
+            <button class="btn red darken-2 z-depth-0" type="submit" role="button" name="logout-submit">Log out</button>
           </form>
           </li>
 
@@ -40,4 +41,4 @@ include('./includes/fetch-favorites.php');
       </div>
     </nav>
 
-    <main class="container p-0 ">
+  <main class="container p-0 ">
