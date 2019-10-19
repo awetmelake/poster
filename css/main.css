@@ -5,11 +5,22 @@ body {
   min-height: 100vh;
   flex-direction: column;
 }
+body .btn-small {
+  height: 25px;
+  line-height: 25px;
+  font-size: 11px;
+}
+body span {
+  margin-right: 1em;
+}
 body nav {
   border-bottom: 1px solid lightgrey;
 }
 body .p-0 {
   padding: 0 !important;
+}
+body .p-1 {
+  padding: 1em !important;
 }
 body .mr-1 {
   margin-right: 1em !important;
@@ -25,7 +36,10 @@ body main {
   flex: 1 0 auto;
 }
 body .refine-results {
-  min-width: 20%;
+  min-width: 25%;
+}
+body .refine-results-form {
+  padding: 0 !important;
 }
 body .refine-results-btns {
   display: flex;
@@ -35,6 +49,8 @@ body .refine-results-btns {
 }
 body .card {
   margin: 0 0 0.5em;
+  width: 100%;
+  border: 1px solid lightgrey !important;
 }
 body .brand {
   background-color: #1A5276 !important;
@@ -49,20 +65,17 @@ body .posts {
   margin-top: 2em;
   width: 70%;
 }
-body .posts .post-card {
+body .post-card {
   margin: 0;
   width: 100%;
 }
-body .posts .post-card .col .card {
-  border: 1px solid lightgrey !important;
-}
-body .posts .post-card .post-card-description {
+body .post-card .post-card-description {
   width: 60%;
 }
-body .posts .post-card .card-content {
+body .post-card .card-content {
   padding: 10px 20px !important;
 }
-body .posts .post-card .post-card-createdat {
+body .post-card .post-card-createdat {
   padding-top: 0.5em;
 }
 body .sign-in-page {
@@ -94,6 +107,17 @@ body .form-button {
   bottom: 1.5px;
   padding: 0 !important;
   display: inline;
+  margin: 0 15px;
+}
+
+.profile-settings .card {
+  border-radius: 10px;
+}
+.profile-settings form {
+  padding: 0 !important;
+}
+.profile .card-footer .btn-small {
+  margin-right: 0.5em;
 }
 
 @media (max-width: 800px) {

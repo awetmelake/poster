@@ -7,12 +7,26 @@ body {
   min-height: 100vh;
   flex-direction: column;
 
+  .btn-small {
+    height: 25px;
+    line-height: 25px;
+    font-size: 11px;
+  }
+
+  span {
+    margin-right: 1em;
+  }
+
   nav {
     border-bottom: 1px solid lightgrey;
   }
 
   .p-0 {
     padding: 0 !important;
+  }
+
+  .p-1 {
+    padding: 1em !important;
   }
 
   .mr-1 {
@@ -33,7 +47,11 @@ body {
   }
 
   .refine-results {
-    min-width: 20%;
+    min-width: 25%;
+
+    &-form {
+      padding: 0 !important;
+    }
 
     &-btns {
       display: flex;
@@ -45,6 +63,12 @@ body {
 
   .card {
     margin: 0 0 0.5em;
+    width: 100%;
+    border: 1px solid lightgrey !important;
+
+    &-content {}
+
+    &-action {}
   }
 
   .brand {
@@ -62,32 +86,22 @@ body {
   .posts {
     margin-top: 2em;
     width: 70%;
+  }
 
-    .post-card {
-      margin: 0;
-      width: 100%;
+  .post-card {
+    margin: 0;
+    width: 100%;
 
-      .col {
-        .card {
-          border: 1px solid lightgrey !important;
+    .post-card-description {
+      width: 60%;
+    }
 
-          &-content {}
+    .card-content {
+      padding: 10px 20px !important;
+    }
 
-          &-action {}
-        }
-      }
-
-      .post-card-description {
-        width: 60%;
-      }
-
-      .card-content {
-        padding: 10px 20px !important;
-      }
-
-      .post-card-createdat {
-        padding-top: 0.5em;
-      }
+    .post-card-createdat {
+      padding-top: 0.5em;
     }
   }
 
@@ -109,7 +123,8 @@ body {
 
   .post-details {
     margin-top: 2em;
-    .card{
+
+    .card {
       border: 1px solid lightgrey;
     }
 
@@ -125,6 +140,25 @@ body {
     bottom: 1.5px;
     padding: 0 !important;
     display: inline;
+    margin: 0 15px;
+  }
+}
+
+.profile {
+  &-settings {
+    .card {
+      border-radius: 10px;
+    }
+
+    form {
+      padding: 0 !important;
+    }
+  }
+
+  .card-footer {
+    .btn-small {
+      margin-right: 0.5em;
+    }
   }
 }
 @media(max-width: 800px) {
