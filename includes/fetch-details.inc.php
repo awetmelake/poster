@@ -1,6 +1,6 @@
 <?php
 include($_SERVER['DOCUMENT_ROOT'] . '/config/db_connect.php');
-include($_SERVER['DOCUMENT_ROOT'] . '/includes/fetch-assoc.php');
+include_once($_SERVER['DOCUMENT_ROOT'] . '/includes/fetch-assoc.php');
 
 if (isset($_GET['id'])) {
     $id =  $_GET['id'];

@@ -6,7 +6,7 @@ session_start();
 if (!isset($_SESSION['userId']) || !isset($_POST['favorites-submit'])) {
     $errmsg = isset($_SESSION['userId']) ? "user" : "nouser";
     echo $errmsg;
-    echo("<script>location.href = '/index.php?err=unauthorized" . $errmsg . "';</script>");
+    echo("<script>location.href = '/index.php?err=unauthorized';</script>");
 } else {
     $userId = intval($_SESSION['userId']);
     $postId = intval($_GET['id']);
