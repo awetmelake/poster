@@ -5,6 +5,7 @@ session_start();
 <html lang="en" dir="ltr">
 <head>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Postr</title>
   <!-- materialize css -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
@@ -16,9 +17,9 @@ session_start();
   <nav class="white z-depth-0">
     <div class="container">
       <a href="index.php" class="brand-logo brand-text">Postr</a>
+      <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons black-text">menu</i></a>
 
-      <!-- nav -->
-      <ul id="nav-mobile" class="right hide-on-small-and-down">
+      <ul class="right hide-on-med-and-down">
         <?php if (isset($_SESSION['userId'])) :?>
           <!-- post btn -->
           <li><a href="add.php" class="btn brand z-depth-0">Post</a></li>
@@ -28,17 +29,39 @@ session_start();
 
           <!-- logout btn -->
           <li>
+            <form class="p-0 form-button" action="./logout.php" method="POST">
+              <button class="btn red darken-2 z-depth-0" type="submit" role="button" name="logout-submit">Log out</button>
+            </form>
+          </li>
+
+        <?php else : ?>
+          <!-- sign in btn -->
+          <li><a href="signin.php" class="btn brand z-depth-0">Sign in</a></li>
+        <?php endif;?>
+      </ul>
+
+      </div>
+    </nav>
+    <!-- nav -->
+    <ul id="nav-mobile" class="sidenav">
+      <?php if (isset($_SESSION['userId'])) :?>
+        <!-- post btn -->
+        <li><a href="add.php" class="btn brand z-depth-0">Post</a></li>
+
+        <!-- profile btn -->
+        <li><a class="btn brand z-depth-0"  href="profile.php?id=<?php echo htmlspecialchars($_SESSION['userId'])?>">Profile</a></li>
+
+        <!-- logout btn -->
+        <li>
           <form class="p-0 form-button" action="./logout.php" method="POST">
             <button class="btn red darken-2 z-depth-0" type="submit" role="button" name="logout-submit">Log out</button>
           </form>
-          </li>
+        </li>
 
-          <?php else : ?>
-            <!-- sign in btn -->
-            <li><a href="signin.php" class="btn brand z-depth-0">Sign in</a></li>
-          <?php endif;?>
-        </ul>
-      </div>
-    </nav>
+      <?php else : ?>
+        <!-- sign in btn -->
+        <li><a href="signin.php" class="btn brand z-depth-0">Sign in</a></li>
+      <?php endif;?>
+    </ul>
 
   <main class="container p-0 ">
