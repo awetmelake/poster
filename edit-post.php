@@ -1,3 +1,4 @@
+<?php include($_SERVER['DOCUMENT_ROOT'] . '/templates/header.php') ?>
 <?php
 if (isset($_POST['edit-post-submit']) || isset($_POST['save-changes-submit'])) {
     require('includes/fetch-details.inc.php');
@@ -32,8 +33,7 @@ if (isset($_POST['edit-post-submit']) || isset($_POST['save-changes-submit'])) {
 
     // post check
     if (isset($_POST['save-changes-submit'])) {
-        include('./config/db_connect.php');
-        session_start();
+        include($_SERVER['DOCUMENT_ROOT'] . '/config/db_connect.php');
 
         $description = $_POST["description"];
         $type =  $_POST["type"];
@@ -164,34 +164,30 @@ if (isset($_POST['edit-post-submit']) || isset($_POST['save-changes-submit'])) {
              created_by=? WHERE id=? ";
 
             if (!mysqli_stmt_prepare($stmt, $sql)) {
-                echo mysqli_error($conn);
-                // header("Location: index.php?err=sqlerror");
+                echo("<script>location.href = '/index.php?err=sqlerror';</script>");
                 exit();
             } else {
                 mysqli_stmt_bind_param($stmt, 'ssssiisiisissssii', $title, $description, $city, $company, $hourly_min, $hourly_max, $phone, $salary_max, $salary_min, $state, $zipcode, $type, $preferred, $requirements, $email, $createdBy, $postId);
                 mysqli_stmt_execute($stmt);
                 mysqli_stmt_close($stmt);
                 mysqli_close($conn);
-                header("Location: index.php?post=editsuccess");
+                echo("<script>location.href = '/index.php?post=editsuccess';</script>");
             }
         }
     }
 } else {
-    header('Location: index.php?err=unauthorized');
+    echo("<script>location.href = '/index.php?err=unauthorized';</script>");
 }
 ?>
 
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <?php include('./templates/header.php') ?>
-  <div class="grey-text center">
-    <h4>Edit post</h4>
-  </div>
+<div class="grey-text center">
+  <h4>Edit post</h4>
+</div>
 
-  <section class="grey-text">
+<section class="grey-text">
 
-    <div class="row">
-      <form class="col s12 offset-3 white" action="edit-post.php?id=<?php echo htmlspecialchars($_GET['id']) ?>" method="POST" >
+  <div class="row">
+      <form class="col s12 offset-3 white" action="edit-post.php?id=<?php echo htmlspecialchars($_GET['id'])?>" method="POST" >
 
         <div class="row">
           <!-- company -->
@@ -204,7 +200,7 @@ if (isset($_POST['edit-post-submit']) || isset($_POST['save-changes-submit'])) {
           <!-- title -->
           <div class="input-field col s12 m4">
             <label>Job title (required)</label>
-            <input type="text" name="title" value="<?php echo htmlspecialchars($title)?>"  >
+            <input type="text" name="title" value="<?php echo htmlspecialchars($title)?>" >
             <div class="red-text"><?php echo $errors['title']?></div>
           </div>
 
@@ -310,75 +306,74 @@ if (isset($_POST['edit-post-submit']) || isset($_POST['save-changes-submit'])) {
            </div>
          </div>
 
-         <!-- min -->
-         <div class="input-field col s12 l4 " id="salary_min"  hidden>
-          <p class="range-field">
-            <label for="salary_minSlider">Salary Min (thousand), > 0</label>
-            <input type="range"  min="0" max="200" name="salary_min" id="salary_minSlider" value=<?php echo $salary_min / 1000?>>
+           <!-- min -->
+           <div class="input-field col s12 l4 " id="salary_min"  hidden>
+            <p class="range-field">
+              <label for="salary_minSlider">Salary Min (thousand), > 0</label>
+              <input type="range"  min="0" max="200" name="salary_min" id="salary_minSlider" value=<?php echo $salary_min / 1000?>>
+            </p>
+            <?php echo "was: " . $salary_min  ?>
+          </div>
+
+          <!-- max -->
+          <div class="input-field col s12 l4 " id="salary_max"  hidden>
+           <p class="range-field">
+            <label for="salary_maxSlider">Salary Max (thousand), > 0</label>
+            <input type="range"  min="0" max="200" name="salary_max" id="salary_maxSlider" value=<?php echo $salary_max / 1000?> >
           </p>
-          <?php echo "was: " . $salary_min  ?>
+          <?php echo "was: " . $salary_max ?>
+          <!-- err -->
+          <div class="red-text"><?php echo $errors['salary']?></div>
         </div>
-
-        <!-- max -->
-        <div class="input-field col s12 l4 " id="salary_max"  hidden>
-         <p class="range-field">
-          <label for="salary_maxSlider">Salary Max (thousand), > 0</label>
-          <input type="range"  min="0" max="200" name="salary_max" id="salary_maxSlider" value=<?php echo $salary_max / 1000?> >
-        </p>
-        <?php echo "was: " . $salary_max ?>
-        <!-- err -->
-        <div class="red-text"><?php echo $errors['salary']?></div>
       </div>
-    </div>
 
-    <!-- hourly -->
-    <div class="row">
-      <!-- switch -->
-      <div class=" input-field col s12 l4">
-        <p>
-          Hourly (optional)
-        </p>
-        <div class="switch">
-          <label>
-           Off
-           <input type="checkbox" id="toggle-hourly" value="<?php echo $post['hourly_max'] > 0 ? 'on' : 'off' ?>">
-           <span class="lever"></span>
-           On
-         </label>
+      <!-- hourly -->
+      <div class="row">
+        <!-- switch -->
+        <div class=" input-field col s12 l4">
+          <p>
+            Hourly (optional)
+          </p>
+          <div class="switch">
+            <label>
+             Off
+             <input type="checkbox" id="toggle-hourly" value="<?php echo $post['hourly_max'] > 0 ? 'on' : 'off' ?>">
+             <span class="lever"></span>
+             On
+           </label>
 
+         </div>
        </div>
+
+       <!-- min -->
+       <div class="input-field col s12 l4 " id="hourly_min" hidden>
+        <p class="range-field">
+          <label for="hourly_minSlider">Hourly min, > 0</label>
+          <input type="range"  min="0" max="100" name="hourly_min" id="hourly_minSlider" value=<?php echo $hourly_min ?>>
+        </p>
+        <?php echo "was: " . $hourly_min ?>
+      </div>
+
+      <!-- max -->
+      <div class=" input-field col s12 l4" id="hourly_max" hidden>
+       <p class="range-field">
+         <label for="hourly_maxSlider">Hourly Max, > 0</label>
+         <input type="range"  min="0" max="100" name="hourly_max" id="hourly_maxSlider"  value=<?php echo $hourly_max ?>  >
+       </p>
+       <?php echo "was: " . $hourly_max ?>
      </div>
 
-     <!-- min -->
-     <div class="input-field col s12 l4 " id="hourly_min" hidden>
-      <p class="range-field">
-        <label for="hourly_minSlider">Hourly min, > 0</label>
-        <input type="range"  min="0" max="100" name="hourly_min" id="hourly_minSlider" value=<?php echo $hourly_min ?>>
-      </p>
-      <?php echo "was: " . $hourly_min ?>
+     <!-- err -->
+     <div class="red-text"><?php echo $errors['hourly']?></div>
     </div>
 
-    <!-- max -->
-    <div class=" input-field col s12 l4" id="hourly_max" hidden>
-     <p class="range-field">
-       <label for="hourly_maxSlider">Hourly Max, > 0</label>
-       <input type="range"  min="0" max="100" name="hourly_max" id="hourly_maxSlider"  value=<?php echo $hourly_max ?>  >
-     </p>
-     <?php echo "was: " . $hourly_max ?>
-   </div>
+    <div class="center">
+      <input value="save changes" type="submit" name="save-changes-submit" class="btn brand z-depth-0">
+    </div>
+    </form>
+  </div>
+</div>
+</section>
 
-   <!-- err -->
-   <div class="red-text"><?php echo $errors['hourly']?></div>
-  </div>
-
-  <div class="center">
-    <input value="save changes" type="submit" name="save-changes-submit" class="btn brand z-depth-0">
-  </div>
-  </form>
-  </div>
-  </div>
-  </section>
-
-  <?php include('./templates/footer.php') ?>
-  <script src="js/post-form-listeners.js" charset="utf-8"></script>
-</html>
+<script src="js/post-form-listeners.js" charset="utf-8"></script>
+<?php include($_SERVER['DOCUMENT_ROOT'] . '/templates/footer.php') ?>
