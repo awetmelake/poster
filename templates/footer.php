@@ -5,10 +5,8 @@
 			<div class="col l6 s12">
 				<h5 class="white-text">Postr</h5>
 				<ul>
-					<li><a class="grey-text text-lighten-3" href="#!">Explore</a></li>
-					<li><a class="grey-text text-lighten-3" href="#!">Sign in</a></li>
-					<li><a class="grey-text text-lighten-3" href="#!">Register</a></li>
-					<li><a class="grey-text text-lighten-3" href="#!">Create a post</a></li>
+					<li><a class="grey-text text-lighten-3" href="index.php">Explore</a></li>
+					<li><a class="grey-text text-lighten-3" href="add.php">Create a post</a></li>
 				</ul>
 				<p class="grey-text text-lighten-4"></p>
 			</div>
@@ -25,7 +23,6 @@
 	</div>
 </footer>
 </body>
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 <script type="text/javascript" src="js/main.js"></script>
 
