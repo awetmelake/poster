@@ -1,45 +1,42 @@
+<?php include($_SERVER['DOCUMENT_ROOT'] . '/templates/header.php')?>
 <?php
-include('./config/db_connect.php');
+include($_SERVER['DOCUMENT_ROOT'] . '/config/db_connect.php');
 
 if (isset($_POST['signin-submit'])) {
     $email = $_POST["email"];
     $password = $_POST["password"];
 
     if (empty($email) || empty($password)) {
-        header("Location: signin.php?err=Empty fields");
+        echo("<script>location.href = '/signin.php?err=Empty fields';</script>");
         exit();
     } else {
         $sql = "SELECT * FROM users WHERE email=?";
         $stmt = mysqli_stmt_init($conn);
 
         if (!mysqli_stmt_prepare($stmt, $sql)) {
-            header("Location: signin.php?err=sqlerror");
+            echo("<script>location.href = '/index.php?err=sqlerror';</script>");
             exit();
         } else {
             mysqli_stmt_bind_param($stmt, 's', $email);
             mysqli_stmt_execute($stmt);
-            $result =  mysqli_stmt_get_result($stmt);
-            if ($row = mysqli_fetch_assoc($result)) {
-                $passwordCheck = password_verify($password, $row['password']);
+            mysqli_stmt_bind_result($stmt, $userId, $userEmail, $userPassword, $col4);
+            if (mysqli_stmt_fetch($stmt)) {
+                $passwordCheck = password_verify($password, $userPassword);
                 if ($passwordCheck == false) {
-                    header("Location: signin.php?err=Incorrect password");
+                    echo("<script>location.href = '/signin.php?err=Incorrect password';</script>");
+                    echo $password . " " .$userPassword;
                     exit();
                 } elseif ($passwordCheck == true) {
-                    session_start();
-                    $_SESSION['userId'] = $row["id"];
-                    header("Location: index.php?signin=successful");
+                    $_SESSION['userId'] = $userId;
+                    echo("<script>location.href = '/index.php?signin=success';</script>");
                 }
             } else {
-                header("Location: signin.php?err=User does not exist");
+                echo("<script>location.href = '/signin.php?err=User does not exist';</script>");
             }
         }
     }
 }//end POST check
 ?>
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-
-<?php include('./templates/header.php')?>
 <div class="row sign-in-page">
 	<div class="col s12">
 		<form class=" white signin-form" method="POST" action="signin.php">
@@ -79,8 +76,4 @@ if (isset($_POST['signin-submit'])) {
 	</div>
 </div>
 
-
-
-<?php include('./templates/footer.php') ?>
-
-</html>
+<?php include($_SERVER['DOCUMENT_ROOT'] . '/templates/footer.php') ?>
