@@ -1,7 +1,6 @@
-<!DOCTYPE html>
-<html>
-<?php include('./templates/header.php') ?>
-<?php include('includes/fetch-details.inc.php')?>
+<?php include($_SERVER['DOCUMENT_ROOT'] . '/templates/header.php') ?>
+<?php include($_SERVER['DOCUMENT_ROOT'] .'/includes/fetch-details.inc.php')?>
+<?php include($_SERVER['DOCUMENT_ROOT'] .'/includes/fetch-favorites.php')?>
 
 <div class="row post-details">
 	<div class="col s12 card z-depth-0">
@@ -110,9 +109,9 @@
                 <form method="POST" action="edit-post.php?id=<?php echo $_GET['id'] ?>" class="form-button edit-post">
                   <input type="submit" class="btn brand z-depth-0"  name="edit-post-submit" value="edit"/>
                 </form>
-              <?php elseif (!empty($favorites) && array_search($post['id'], $favorites)): ?>
-                <form method="POST" action="./includes/remove-favorites.php?id=<?php echo $_GET['id'] ?>" class="form-button edit-post">
-                  <input type="submit" class="btn brand z-depth-0"  name="remove-favorites-submit" value="Remove from favorites"/>
+              <?php elseif (!empty($favorites) && in_array($post['id'], $favorites)) : ?>
+                <form method="POST" action="./includes/remove-favorites.inc.php?id=<?php echo $_GET['id'] ?>" class="form-button edit-post">
+                  <input type="submit" class="btn red darken-2 z-depth-0"  name="remove-favorites-submit" value="Remove from favorites"/>
                 </form>
               <?php else: ?>
                 <form method="POST" action="./includes/add-favorites.inc.php?id=<?php echo $_GET['id']?>" class="form-button add-favorites">
@@ -129,5 +128,5 @@
 						<p>Sorry that post doesn't exist</p>
 					<?php endif; ?>
 			</div>
-<?php include('./templates/footer.php') ?>
-</html>
+
+<?php include($_SERVER['DOCUMENT_ROOT'] . '/templates/footer.php') ?>
