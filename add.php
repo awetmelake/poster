@@ -3,7 +3,7 @@
 <?php
 // protect route
 if (!isset($_SESSION['userId'])) {
-    echo("<script>location.href = '/index.php?err=Must be signed in to access that page';</script>");
+    echo("<script>location.href = '/index.php?err=unauthorized';</script>");
 }
 
 include($_SERVER['DOCUMENT_ROOT'] . '/config/db_connect.php');
