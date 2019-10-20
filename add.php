@@ -1,15 +1,12 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-
-<?php include('./templates/header.php') ?>
+<?php include($_SERVER['DOCUMENT_ROOT'] . '/templates/header.php') ?>
 
 <?php
 // protect route
 if (!isset($_SESSION['userId'])) {
-    header("Location: index.php?err=Must be signed in to access that page");
+    echo("<script>location.href = '/index.php?err=Must be signed in to access that page';</script>");
 }
 
-include('config/db_connect.php');
+include($_SERVER['DOCUMENT_ROOT'] . '/config/db_connect.php');
 
 $title = $description = $company = $city = $state = $zipcode = $phone  = $email = $preferred = $requirements = "";
 $salary_max = $salary_min = $hourly_max = $hourly_min = 0;
@@ -122,14 +119,14 @@ if (isset($_POST['post-submit'])) {
         $sql = "INSERT INTO posts(title, description, city, company, hourly_min, hourly_max, phone, salary_max, salary_min, state, zipcode, type, preferred, requirements, email, created_by ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
         if (!mysqli_stmt_prepare($stmt, $sql)) {
-            header("Location: index.php?err=sqlerror");
+            echo("<script>location.href = '/index.php?err=sqlerror';</script>");
             exit();
         } else {
             mysqli_stmt_bind_param($stmt, 'ssssiisiisissssi', $title, $description, $city, $company, $hourly_min, $hourly_max, $phone, $salary_max, $salary_min, $state, $zipcode, $type, $preferred, $requirements, $email, $createdBy);
             mysqli_stmt_execute($stmt);
             mysqli_stmt_close($stmt);
             mysqli_close($conn);
-            header("Location: index.php?post=success");
+            echo("<script>location.href = '/index.php?post=success';</script>");
         }
     }
 } // end POST check
@@ -324,6 +321,5 @@ if (isset($_POST['post-submit'])) {
 </div>
 </section>
 
-<?php include('./templates/footer.php') ?>
 <script src="js/post-form-listeners.js" charset="utf-8"></script>
-</html>
+<?php include($_SERVER['DOCUMENT_ROOT'] . '/templates/footer.php') ?>
