@@ -35,11 +35,8 @@ foreach ($posts as $post) {
     if (!in_array($city, $locationOptions)) {
         array_push($locationOptions, $city . ", " . $state);
     }
-    if (!in_array($salary, $salaryOptions) && $salary !== 0) {
+    if (!in_array($salary, $salaryOptions)) {
         array_push($salaryOptions, $salary);
-        if (isset($_GET['s'])) {
-            $salaryOptions = array($_GET['s']);
-        }
     }
 }
 
@@ -91,7 +88,6 @@ if (isset($_GET['o'])) {
 } else {
     $sql .= "ORDER BY created_at DESC";
 }
-
 $stmt = mysqli_stmt_init($conn);
 if (!mysqli_stmt_prepare($stmt, $sql)) {
     echo("<script>location.href = '/index.php?err=sqlerror';</script>");
