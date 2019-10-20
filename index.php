@@ -1,16 +1,10 @@
-<?php
-include("./includes/fetch-results.php");
-?>
-
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-<?php include('./templates/header.php')?>
+<?php include($_SERVER['DOCUMENT_ROOT'] . '/templates/header.php')?>
 
 <!-- output messages -->
 <div class="red-text center"><br>
 <?php if (isset($_GET['err'])): ?>
   <?php  $message = $_GET['err']; ?>
-  <?php if ($message === "sqlerror" || $message === "sqlerr"): ?>
+  <?php if ($message === "sqlerror"): ?>
     <?php  echo "Something went wrong, database connection failed"; ?>
   <?php elseif ($message === "unauthorized"): ?>
     <?php  echo "Must be signed in to preform that action"; ?>
@@ -26,7 +20,12 @@ include("./includes/fetch-results.php");
 <?php endif; ?>
 </div>
 
-<?php include('./refine-results.php')?>
+<?php include($_SERVER['DOCUMENT_ROOT'] . '/refine-results.php')?>
+<?php if (empty($posts)): ?>
+  <div class="center">
+    <h4>No matching results</h4>
+  </div>
+<?php endif; ?>
 
 <div class="posts right">
   <?php foreach ($posts as $post): ?>
@@ -41,7 +40,6 @@ include("./includes/fetch-results.php");
             <div class="post-card-createdat grey-text">Posted: <?php echo htmlspecialchars(substr($post['created_at'], 0, 10)) ?></div>
           </div>
           <div class="card-action">
-            <!-- <a href="apply.php?apply=<?php echo $post["id"]?>" class="green-text">Save</a> -->
             <a href="details.php?id=<?php echo $post["id"]?>" class="brand-text">More info</a>
           </div>
         </div>
@@ -51,6 +49,4 @@ include("./includes/fetch-results.php");
   <?php endforeach ?>
 </div>
 
-<?php include('./templates/footer.php') ?>
-
-</html>
+<?php include($_SERVER['DOCUMENT_ROOT'] . '/templates/footer.php') ?>
