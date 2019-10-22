@@ -34,10 +34,10 @@ PHP job posting board site. Create, edit, save postings.
 6. Have fun!
 
 ## Languages and libraries
-* PHP 
+* PHP
 * MySQL
 * Materialize.css
 
 
 ## What the app looks like
-![Markdown Logo](https://i.imgur.com/tPgpEG7.gifv)
+![alt text](https://imgur.com/tPgpEG7.gif)
