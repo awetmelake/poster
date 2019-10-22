@@ -1,14 +1,13 @@
-#Postr
-https://postr.awettech.com
-
+# Postr
 PHP job posting board site. Create, edit, save postings.
+https://postr.awettech.com
 
 # How to run the app
 1. Fork/clone repo
 2. Install XAMPP to run local Apache and MySql servers on your machine, or upload to remote server with these services
-3. Create a folder 'config' in /src with a file 'db_connect.php'. In it connect to your database server, remote or local, with `mysqli_connect()` and store the connection in a variable: $conn
+3. Create a folder 'config' in /src with a file 'db_connect.php'. In it connect to your database server, remote or local, with `mysqli_connect()` and store the connection in a variable `$conn`
 
-#### src/config/db_connect.php :
+#### /config/db_connect.php
 ```
 <?php
   // define connection to mysql db
@@ -20,7 +19,7 @@ PHP job posting board site. Create, edit, save postings.
   }
 
 ```
-4. Create empty database
+4. Create database
 
 5. With in your database create three tables: posts, users, favorite_posts
  #### Run the following queries from cmd line once connected to db or in phpmyadmin sql console
@@ -33,10 +32,18 @@ PHP job posting board site. Create, edit, save postings.
   ```
 6. Have fun!
 
+## About
+ * This project primarily consists of php scripts that pull from, create, delete or insert data into the mysql db.
+ * Posts are created by running SQL queries against the database with validated data from a POST request sent when an authenticated user submits a post through the /add page.
+ * These posts are added to a collection of posts that all users can see on the home page. Posts can also be filtered by users through the 'options' panel on the home page.
+ * Posts are pulled from the database by limiters given as query params from the query string. The options panel is a form that, on submit, sends a GET request to the home page, which then pulls the appropriate data.
+ * Users can sign in and create new posts, edit created posts, delete posts, save other users posts, and are given the option to private their profiles.
+
 ## Languages and libraries
 * PHP
 * MySQL
 * Materialize.css
+* Sass
 
 
 ## What the app looks like
