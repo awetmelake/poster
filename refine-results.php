@@ -11,7 +11,7 @@ include($_SERVER['DOCUMENT_ROOT'] . "/includes/fetch-results.inc.php");
 		<select name="l" >
       <option value=""  selected>Select location</option>
 			<?php foreach ($locationOptions as $location): ?>
-				<option <?php echo isset($_GET['l']) && $_GET['l'] == $location ? "selected" : null ?>><?php echo htmlspecialchars($location) ?></option><br>
+				<option value="<?php echo explode(',', $location)[0] ?>" <?php echo isset($_GET['l']) && $_GET['l'] == $location ? "selected" : null ?>><?php echo htmlspecialchars($location) ?></option><br>
 			<?php endforeach; ?>
 		</select><br>
 
