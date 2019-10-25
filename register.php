@@ -1,5 +1,6 @@
 <?php
-include('config/db_connect.php');
+include($_SERVER['DOCUMENT_ROOT'] . '/config/db_connect.php');
+include($_SERVER['DOCUMENT_ROOT'] . '/templates/header.php');
 $email = $password = $confirmPassword = "";
 $errors = array( 'email' => '', 'password' => '', 'confirmPassword' => '' );
 
@@ -36,15 +37,14 @@ if (isset($_POST['register-submit'])) {
             }
         }
         echo $errQuery;
-        header("Location: register.php?" . $errQuery . "&email=" . $_POST['email']);
+        echo("<script>location.href = '/register.php?" . $errQuery . "&email=" . $_POST['email'] . "';</script>");
     } else {
-        // check for existing email in db
         // prepare statement
         $sql = "SELECT id FROM users WHERE email=? ";
         $stmt = mysqli_stmt_init($conn);
 
         if (!mysqli_stmt_prepare($stmt, $sql)) {
-            header("Location: register.php?err=sqlErr");
+            echo("<script>location.href = '/register.php?err=sqlerror';</script>");
             exit();
         } else {
             mysqli_stmt_bind_param($stmt, "s", $email);
@@ -52,20 +52,20 @@ if (isset($_POST['register-submit'])) {
             mysqli_stmt_store_result($stmt);
             $resultCount = mysqli_stmt_num_rows($stmt);
             if ($resultCount > 0) {
-                header("Location: register.php?emailerr=Email already in use");
+                echo("<script>location.href = '/register.php?emailerr=Email already in use';</script>");
                 exit();
             } else {
                 $sql = "INSERT INTO users (email , password) VALUES ( ? , ?)";
                 $stmt = mysqli_stmt_init($conn);
 
                 if (!mysqli_stmt_prepare($stmt, $sql)) {
-                    header("Location: register.php?err=sqlErr");
+                    echo("<script>location.href = '/register.php?err=sqlerror';</script>");
                     exit();
                 } else {
                     $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
                     mysqli_stmt_bind_param($stmt, "ss", $email, $hashedPassword);
                     mysqli_stmt_execute($stmt);
-                    header("Location: index.php");
+                    echo("<script>location.href = '/index.php?signin=success';</script>");
                 }
             }
         }
@@ -74,10 +74,7 @@ if (isset($_POST['register-submit'])) {
     mysqli_close($conn);
 } //end post check
 ?>
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
 
-<?php include('./templates/header.php')?>
 <div class="row sign-in-page">
 	<div class="col s12">
 		<form class=" white signin-form" method="POST" action="register.php">
@@ -119,6 +116,4 @@ if (isset($_POST['register-submit'])) {
 	</div>
 </div>
 
-<?php include('./templates/footer.php') ?>
-
-</html>
+<?php include($_SERVER['DOCUMENT_ROOT'] . '/templates/footer.php') ?>

@@ -19,7 +19,7 @@ if (isset($_POST['signin-submit'])) {
         } else {
             mysqli_stmt_bind_param($stmt, 's', $email);
             mysqli_stmt_execute($stmt);
-            mysqli_stmt_bind_result($stmt, $userId, $userEmail, $userPassword, $col4);
+            mysqli_stmt_bind_result($stmt, $userId, $userEmail, $userPassword, $col4, $col5);
             if (mysqli_stmt_fetch($stmt)) {
                 $passwordCheck = password_verify($password, $userPassword);
                 if ($passwordCheck == false) {
@@ -70,7 +70,9 @@ if (isset($_POST['signin-submit'])) {
 		<div class="signin-form signin-options  white center p-1">
 			<h6>Dont have an account? </h6>
 			<br>
-			<a class="btn brand z-depth-0" >Sign in a guest</a>
+      <form class="form-button m-0" action="/includes/guest-login.inc.php" method="POST">
+        <input type="submit" name="guest-signin-submit" class="btn brand z-depth-0" value="Sign in a guest">
+      </form>
 			<a href="register.php" class="btn brand z-depth-0" name="guest" value="Sign in a guest">Register</a>
 		</div>
 	</div>
