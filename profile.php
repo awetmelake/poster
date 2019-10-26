@@ -1,8 +1,8 @@
- <?php
- include($_SERVER['DOCUMENT_ROOT'] . '/templates/header.php');
- include_once($_SERVER['DOCUMENT_ROOT'] . '/includes/fetch-assoc.php');
- include($_SERVER['DOCUMENT_ROOT'] . '/includes/fetch-favorites.php');
- include($_SERVER['DOCUMENT_ROOT'] . '/includes/fetch-user-posts.inc.php');
+<?php
+include($_SERVER['DOCUMENT_ROOT'] . '/templates/header.php');
+include_once($_SERVER['DOCUMENT_ROOT'] . '/includes/fetch-assoc.php');
+include($_SERVER['DOCUMENT_ROOT'] . '/includes/fetch-favorites.php');
+include($_SERVER['DOCUMENT_ROOT'] . '/includes/fetch-user-posts.inc.php');
 
 
  $userId = $_GET['id'];
