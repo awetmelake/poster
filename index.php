@@ -16,6 +16,8 @@
     <?php echo "Successfully added new post"?>
   <?php elseif ($message === 'editsuccess'): ?>
     <?php echo "Saved changes"?>
+  <?php elseif ($message === 'deleted'): ?>
+    <?php echo "Successfully deleted post"?>
   <?php endif; ?>
 <?php endif; ?>
 </div>
