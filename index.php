@@ -42,7 +42,7 @@
             <div class="post-card-createdat grey-text">Posted: <?php echo htmlspecialchars(substr($post['created_at'], 0, 10)) ?></div>
           </div>
           <div class="card-action">
-            <a href="details.php?id=<?php echo $post["id"]?>" class="brand-text">More info</a>
+            <a href="details?id=<?php echo $post["id"]?>" class="brand-text">More info</a>
           </div>
         </div>
       </div>
