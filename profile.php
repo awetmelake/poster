@@ -10,7 +10,7 @@ include($_SERVER['DOCUMENT_ROOT'] . '/includes/fetch-user-posts.inc.php');
  $stmt = mysqli_stmt_init($conn);
 
  if (!mysqli_stmt_prepare($stmt, $sql)) {
-     echo("<script>location.href = '/index.php?err=sqlerror';</script>");
+     echo("<script>location.href = '/?err=sqlerror';</script>");
      exit();
  } else {
      // get user info
@@ -29,7 +29,7 @@ $stmt = mysqli_stmt_init($conn);
 $favPosts = array();
 
 if (!mysqli_stmt_prepare($stmt, $sql)) {
-    echo("<script>location.href = '/index.php?err=sqlerror';</script>");
+    echo("<script>location.href = '/?err=sqlerror';</script>");
     exit();
 } else {
     // get saved posts
@@ -59,7 +59,7 @@ if (!mysqli_stmt_prepare($stmt, $sql)) {
     <div class="center grey-text v-align">
       <h3>This user's profile is private</h3>
       <br>
-      <a href="/index.php" class="btn brand z-depth-0">home</a>
+      <a href="/" class="btn brand z-depth-0">home</a>
       <br>
     </div>
     <?php else: ?>
@@ -212,7 +212,7 @@ if (!mysqli_stmt_prepare($stmt, $sql)) {
     e.target.value = e.target.value === "off" ? "on" : "off";
     privacyVal.value = e.target.value === "off" ? 1 : 0;
     saveChanges.disabled = !saveChanges.disabled;
-    console.log(e.target.value);
+    // console.log(e.target.value);
   });
-  console.log(privacySwitch.value);
+  // console.log(privacySwitch.value);
 </script>

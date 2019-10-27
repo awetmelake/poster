@@ -7,14 +7,14 @@ if (isset($_POST['signin-submit'])) {
     $password = $_POST["password"];
 
     if (empty($email) || empty($password)) {
-        echo("<script>location.href = '/signin.php?err=Empty fields';</script>");
+        echo("<script>location.href = '/signin?err=Empty fields';</script>");
         exit();
     } else {
         $sql = "SELECT * FROM users WHERE email=?";
         $stmt = mysqli_stmt_init($conn);
 
         if (!mysqli_stmt_prepare($stmt, $sql)) {
-            echo("<script>location.href = '/index.php?err=sqlerror';</script>");
+            echo("<script>location.href = '/?err=sqlerror';</script>");
             exit();
         } else {
             mysqli_stmt_bind_param($stmt, 's', $email);
@@ -23,15 +23,15 @@ if (isset($_POST['signin-submit'])) {
             if (mysqli_stmt_fetch($stmt)) {
                 $passwordCheck = password_verify($password, $userPassword);
                 if ($passwordCheck == false) {
-                    echo("<script>location.href = '/signin.php?err=Incorrect password';</script>");
+                    echo("<script>location.href = '/signin?err=Incorrect password';</script>");
                     echo $password . " " .$userPassword;
                     exit();
                 } elseif ($passwordCheck == true) {
                     $_SESSION['userId'] = $userId;
-                    echo("<script>location.href = '/index.php?signin=success';</script>");
+                    echo("<script>location.href = '/?signin=success';</script>");
                 }
             } else {
-                echo("<script>location.href = '/signin.php?err=User does not exist';</script>");
+                echo("<script>location.href = '/signin?err=User does not exist';</script>");
             }
         }
     }

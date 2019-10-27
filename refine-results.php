@@ -3,7 +3,7 @@ include($_SERVER['DOCUMENT_ROOT'] . "/includes/fetch-results.inc.php");
 ?>
 
 <div class="refine-results p-1 left">
-	<form class="refine-results-form" method="GET" action="index.php">
+	<form class="refine-results-form" method="GET" action="/">
 		<h5>Options</h5>
 		<div class="divider"></div><br>
 

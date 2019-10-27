@@ -7,6 +7,14 @@ body {
   min-height: 100vh;
   flex-direction: column;
 
+  .v-align{
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
   .btn-small {
     height: 25px;
     line-height: 25px;
@@ -92,6 +100,13 @@ body {
     margin: 0;
     width: 100%;
 
+    .z-depth-0{
+      &:hover{
+        box-shadow: -5px 5px  lightgrey !important;
+        transform: scale(1.05);
+      }
+    }
+
     .post-card-description {
       width: 60%;
     }
@@ -114,6 +129,10 @@ body {
       border-radius: 10px;
       border: 1px solid lightgrey;
       margin: auto;
+
+      .btn {
+        margin-bottom: 0.5em;
+      }
     }
 
     .signin-options {
@@ -137,7 +156,7 @@ body {
 
   .form-button {
     position: relative;
-    bottom: 1.5px;
+    // bottom: 1.5px;
     padding: 0 !important;
     display: inline;
     margin: 0 15px;
@@ -145,6 +164,7 @@ body {
 }
 
 .profile {
+  padding-bottom: 100px;
   &-settings {
     .card {
       border-radius: 10px;
@@ -160,6 +180,15 @@ body {
       margin-right: 0.5em;
     }
   }
+
+  .saved-posts-post-btns {
+    padding: .5em;
+  }
+
+  .delete-confirm{
+    border-radius: 10px;
+    border: 1px solid lightgrey;
+  }
 }
 @media(max-width: 800px) {
   .posts {
@@ -169,4 +198,5 @@ body {
   .refine-results {
     width: 100% !important;
   }
+
 }

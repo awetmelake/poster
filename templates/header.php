@@ -16,28 +16,28 @@ session_start();
 <body class="grey lighten-3">
   <nav class="white z-depth-0">
     <div class="container">
-      <a href="/index.php" class="brand-logo brand-text">Postr</a>
+      <a href="/" class="brand-logo brand-text">Postr</a>
       <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons black-text">menu</i></a>
 
       <!-- main nav -->
       <ul class="right hide-on-med-and-down">
         <?php if (isset($_SESSION['userId'])) :?>
           <!-- post btn -->
-          <li><a href="/add.php" class="btn brand z-depth-0" title="Create a post"><i class="material-icons">post_add</i></a></li>
+          <li><a href="/add" class="btn brand z-depth-0" title="Create a post"><i class="material-icons">post_add</i></a></li>
 
           <!-- profile btn -->
-          <li><a class="btn brand z-depth-0"  href="/profile.php?id=<?php echo htmlspecialchars($_SESSION['userId'])?>" title="Go to user profile"><i class="material-icons">perm_identity</i></a></li>
+          <li><a class="btn brand z-depth-0"  href="/profile?id=<?php echo htmlspecialchars($_SESSION['userId'])?>" title="Go to user profile"><i class="material-icons">perm_identity</i></a></li>
 
           <!-- logout btn -->
           <li>
-            <form class="p-0 form-button" action="./logout.php" method="POST">
+            <form class="p-0 form-button" action="./logout" method="POST">
               <button class="btn red darken-2 z-depth-0" type="submit" role="button" name="logout-submit">Log out</button>
             </form>
           </li>
 
         <?php else : ?>
           <!-- sign in btn -->
-          <li><a href="/signin.php" class="btn brand z-depth-0">Sign in</a></li>
+          <li><a href="/signin" class="btn brand z-depth-0">Sign in</a></li>
         <?php endif;?>
       </ul>
 
@@ -48,21 +48,21 @@ session_start();
     <ul id="nav-mobile" class="sidenav">
       <?php if (isset($_SESSION['userId'])) :?>
         <!-- post btn -->
-        <li><a href="/add.php" class="btn brand z-depth-0">Post</a></li>
+        <li><a href="/add" class="btn brand z-depth-0">Post</a></li>
 
         <!-- profile btn -->
-        <li><a class="btn brand z-depth-0"  href="/profile.php?id=<?php echo htmlspecialchars($_SESSION['userId'])?>">Profile</a></li>
+        <li><a class="btn brand z-depth-0"  href="/profile?id=<?php echo htmlspecialchars($_SESSION['userId'])?>">Profile</a></li>
 
         <!-- logout btn -->
         <li>
-          <form class="p-0 form-button" action="./logout.php" method="POST">
+          <form class="p-0 form-button" action="./logout" method="POST">
             <button class="btn red darken-2 z-depth-0" type="submit" role="button" name="logout-submit">Log out</button>
           </form>
         </li>
 
       <?php else : ?>
         <!-- sign in btn -->
-        <li><a href="/signin.php" class="btn brand z-depth-0">Sign in</a></li>
+        <li><a href="/signin" class="btn brand z-depth-0">Sign in</a></li>
       <?php endif;?>
     </ul>
 

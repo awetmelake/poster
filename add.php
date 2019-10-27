@@ -3,7 +3,7 @@
 <?php
 // protect route
 if (!isset($_SESSION['userId'])) {
-    echo("<script>location.href = '/index.php?err=unauthorized';</script>");
+    echo("<script>location.href = '/?err=unauthorized';</script>");
 }
 
 include($_SERVER['DOCUMENT_ROOT'] . '/config/db_connect.php');
@@ -119,14 +119,14 @@ if (isset($_POST['post-submit'])) {
         $sql = "INSERT INTO posts(title, description, city, company, hourly_min, hourly_max, phone, salary_max, salary_min, state, zipcode, type, preferred, requirements, email, created_by ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
         if (!mysqli_stmt_prepare($stmt, $sql)) {
-            echo("<script>location.href = '/index.php?err=sqlerror';</script>");
+            echo("<script>location.href = '/?err=sqlerror';</script>");
             exit();
         } else {
             mysqli_stmt_bind_param($stmt, 'ssssiisiisissssi', $title, $description, $city, $company, $hourly_min, $hourly_max, $phone, $salary_max, $salary_min, $state, $zipcode, $type, $preferred, $requirements, $email, $createdBy);
             mysqli_stmt_execute($stmt);
             mysqli_stmt_close($stmt);
             mysqli_close($conn);
-            echo("<script>location.href = '/index.php?post=success';</script>");
+            echo("<script>location.href = '/?post=success';</script>");
         }
     }
 } // end POST check

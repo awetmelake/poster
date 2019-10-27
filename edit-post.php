@@ -164,19 +164,19 @@ if (isset($_POST['edit-post-submit']) || isset($_POST['save-changes-submit'])) {
              created_by=? WHERE id=? ";
 
             if (!mysqli_stmt_prepare($stmt, $sql)) {
-                echo("<script>location.href = '/index.php?err=sqlerror';</script>");
+                echo("<script>location.href = '/?err=sqlerror';</script>");
                 exit();
             } else {
                 mysqli_stmt_bind_param($stmt, 'ssssiisiisissssii', $title, $description, $city, $company, $hourly_min, $hourly_max, $phone, $salary_max, $salary_min, $state, $zipcode, $type, $preferred, $requirements, $email, $createdBy, $postId);
                 mysqli_stmt_execute($stmt);
                 mysqli_stmt_close($stmt);
                 mysqli_close($conn);
-                echo("<script>location.href = '/index.php?post=editsuccess';</script>");
+                echo("<script>location.href = '/?post=editsuccess';</script>");
             }
         }
     }
 } else {
-    echo("<script>location.href = '/index.php?err=unauthorized';</script>");
+    echo("<script>location.href = '/?err=unauthorized';</script>");
 }
 ?>
 
