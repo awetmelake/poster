@@ -7,7 +7,7 @@ $sql = "SELECT * FROM posts ";
 
 $stmt = mysqli_stmt_init($conn);
 if (!mysqli_stmt_prepare($stmt, $sql)) {
-    echo("<script>location.href = '/index.php?err=sqlerror';</script>");
+    echo("<script>location.href = '/?err=sqlerror';</script>");
     exit();
 } else {
     $posts = array();
@@ -26,13 +26,12 @@ $salaryOptions = array();
 foreach ($posts as $post) {
     $city = $post['city'];
     $state = $post['state'];
-    $state = $post['state'];
     if ($post['hourly_max'] !== 0 || $post['salary_max'] !== 0) {
         $salary =  (($post['salary_max'] + $post['salary_min']) / 2) + (($post['hourly_max'] + $post['hourly_min']) * 1040);
     } else {
         $salary = null;
     }
-    if (!in_array($city, $locationOptions)) {
+    if (!in_array($city . ", " . $state, $locationOptions)) {
         array_push($locationOptions, $city . ", " . $state);
     }
     if (!in_array($salary, $salaryOptions)) {
@@ -90,7 +89,7 @@ if (isset($_GET['o'])) {
 }
 $stmt = mysqli_stmt_init($conn);
 if (!mysqli_stmt_prepare($stmt, $sql)) {
-    echo("<script>location.href = '/index.php?err=sqlerror';</script>");
+    echo("<script>location.href = '/?err=sqlerror';</script>");
     exit();
 } else {
     $posts = array();

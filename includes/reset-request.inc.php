@@ -3,7 +3,7 @@ include($_SERVER['DOCUMENT_ROOT'] . "/config/db_connect.php");
 include_once($_SERVER['DOCUMENT_ROOT'] . '/includes/fetch-assoc.php');
 
 if (!isset($POST['reset-request-submit'])) {
-    echo("<script>location.href = '/index.php?err=unauthorized';</script>");
+    echo("<script>location.href = '/?err=unauthorized';</script>");
     exit();
 } else {
     $selector = bin2hex(random_bytes(8));
@@ -14,7 +14,7 @@ if (!isset($POST['reset-request-submit'])) {
     $sql  = "DELETE FROM loginsystem WHERE pwdResetEmail = ?";
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt, $sql)) {
-        echo("<script>location.href = '/index.php?err=sqlerror';</script>");
+        echo("<script>location.href = '/?err=sqlerror';</script>");
         exit();
     } else {
         $hashedToken = password_hash($token, PASSWORD_DEFAULT);

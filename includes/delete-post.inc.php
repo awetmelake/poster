@@ -5,7 +5,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/includes/fetch-details.inc.php');
 ?>
 
 <?php if (!isset($_SESSION['userId']) || !isset($_SESSION['userId']) && !isset($_POST['delete-post-submit'])): ?>
-  <?php echo("<script>location.href = '/index.php?err=unauthorized';</script>");
+  <?php echo("<script>location.href = '/?err=unauthorized';</script>");
   exit(); ?>
 <?php elseif (isset($_SESSION['userId']) && isset($_POST['delete-post-submit'])): ?>
   <?php
@@ -14,13 +14,13 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/includes/fetch-details.inc.php');
   $sql = "DELETE FROM posts WHERE id = ?";
   $stmt = mysqli_stmt_init($conn);
   if (!mysqli_stmt_prepare($stmt, $sql)) {
-      // echo("<script>location.href = '/index.php?err=sqlerror';</script>");
+      // echo("<script>location.href = '/?err=sqlerror';</script>");
       echo mysqli_error($conn);
       exit();
   } else {
       mysqli_stmt_bind_param($stmt, 'i', $postId);
       mysqli_stmt_execute($stmt);
-      echo("<script>location.href = '/index.php?post=deleted';</script>");
+      echo("<script>location.href = '/?post=deleted';</script>");
   }
   mysqli_stmt_close($stmt);
   mysqli_close($conn);

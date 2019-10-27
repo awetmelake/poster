@@ -8,7 +8,7 @@ if (isset($_GET['id'])) {
     $stmt = mysqli_stmt_init($conn);
 
     if (!mysqli_stmt_prepare($stmt, $sql)) {
-        echo("<script>location.href = '/index.php?err=sqlerror';</script>");
+        echo("<script>location.href = '/?err=sqlerror';</script>");
         exit();
     } else {
         mysqli_stmt_bind_param($stmt, "s", $id);
